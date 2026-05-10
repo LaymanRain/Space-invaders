@@ -8,7 +8,8 @@ class Player(pygame.sprite.Sprite):
         self.speed = speed
         self.max_x_constraint = constraint
         self.ready = True
-        
+        self.laser_time = 0
+        self.laser_cooldown = 600
         
     def get_input(self):
         keys = pygame.key.get_pressed()
@@ -18,8 +19,10 @@ class Player(pygame.sprite.Sprite):
         elif keys[pygame.K_LEFT]:
             self.rect.x -= self.speed
 
-if keys[pygame.K_SPACE]:
+if keys[pygame.K_SPACE] and self.ready:
    self.shoot_laser()
+   self.ready = False
+   self.laser_time = pygame.time.get_ticks()
     
    def constraint(self):
        if self.rect.left <= 0:
